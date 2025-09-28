@@ -1,0 +1,8 @@
+{
+	"/(auth)": [],
+	"/(app)": [],
+	"/": [],
+	"/about": [],
+	"/(auth)/auth": [],
+	"/(auth)/auth/verify": []
+}

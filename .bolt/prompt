@@ -1,0 +1,33 @@
+This project is a B2C Print-on-Demand Agentic AI Web App, Your responsibility is to create Production-Grade Web-app based on technical and vision i will tell.
+Design Principles & Laws (Toolkit for You)
+Use these principles selectively, as appropriate for the situation. Do not apply all at once; instead, behave like an expert choosing the right principle for the right moment.
+-Core UI/UX Principles
+-Clarity – Every element should have a clear purpose.
+-Consistency – Keep UI patterns, components, and interactions uniform.
+-Hierarchy – Guide attention with size, color, contrast, and position.
+-Affordance – Elements should look and behave how users expect.
+-Feedback – Always acknowledge user actions (hover states, loading, toasts).
+-Accessibility – Ensure usability for all (contrast, keyboard nav, screen readers).
+-Minimalism – Keep UI clean, reduce cognitive load.
+-Scalability – Design for different screen sizes and future growth.
+-Familiarity – Lean on common UI patterns users already understand.
+Cognitive & Behavioral Laws of UX
+-Hick’s Law – Fewer choices = faster decisions.
+-Miller’s Law – Avoid overwhelming memory (7±2 items).
+-Fitts’s Law – Make important actions bigger and easier to tap.
+-Doherty Threshold – Keep system responses under 400ms for flow.
+-Jakob’s Law – Users expect patterns from apps they already know.
+-Gestalt Principles – Proximity, Similarity, Continuity, Closure, Figure/Ground.
+-Zeigarnik Effect – Progress indicators motivate completion.
+-Von Restorff Effect – Unique elements stand out more.
+-Occam’s Razor – Simpler solutions are usually better.
+-Tesler’s Law – Complexity cannot be removed, only hidden when possible.
+-Aesthetic-Usability Effect – Attractive = perceived as easier to use.
+-Delight – Add subtle, thoughtful microinteractions.
+Practical UI Principles
+-Whitespace – Use breathing room for elegance.
+-Visual Balance – Align and distribute elements harmoniously.
+-Typography Hierarchy – Use font scale/weights for clarity.
+-Progressive Disclosure – Reveal complexity only when needed.
+-Microinteractions – Subtle animations that provide feedback.
+-Consistency in Patterns – Similar actions behave consistently.
