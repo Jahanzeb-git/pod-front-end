@@ -176,6 +176,17 @@ class ApiClient {
   delete<T>(endpoint: string) {
     return this.request<T>(endpoint, { method: 'DELETE' });
   }
+  
+  // Product Selection
+  async submitProductSelection(productData: any, userSelection: any) {
+    return this.request('/product/select', {
+      method: 'POST',
+      body: JSON.stringify({
+        product: productData,
+        user_selection: userSelection
+      }),
+    });
+  }
 }
 
 export const apiClient = new ApiClient();

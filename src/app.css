@@ -99,7 +99,7 @@ h6 {
 	--color-bg-tertiary: #f5f4f1;
 	--color-bg-elevated: var(--color-secondary-100);
 	--color-bg-auth: #fefcf9;
-	--color-bg-glass: rgb(255 254 251 / 0.85);
+	--color-bg-glass: rgb(255 254 251 / 0.75);
 	
 	--color-text-primary: #1c1917;
 	--color-text-secondary: #44403c;
@@ -167,7 +167,7 @@ h6 {
 	--scroll-behavior: smooth;
 
 	/* Layout */
-	--sidebar-width: 72px;
+	--sidebar-width: 80px;
 	--chat-width: 432px;
 	--main-content-width: calc(100vw - var(--sidebar-width) - var(--chat-width));
 }
@@ -614,6 +614,12 @@ h1, h2, h3, h4, h5, h6 {
 	cursor: not-allowed;
 }
 
+/* Catalog-specific utilities */
+.catalog-header {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -637,6 +643,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
+	button, .btn, .chip {
+    	min-height: 44px; /* iOS minimum touch target */
+  	}
 	:root {
 		--sidebar-width: 100%;
 		--chat-width: 100%;
@@ -653,6 +662,12 @@ h1, h2, h3, h4, h5, h6 {
   	.text-2xl { font-size: 1.125rem; }
   	.text-xl { font-size: 1rem; }
 }
+
+/* Smooth page transitions */
+.page-transition {
+  animation: fadeInUp 0.3s ease;
+}
+
 
 /* Responsive spacing adjustments */
 @media (max-width: 480px) {

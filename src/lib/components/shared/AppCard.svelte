@@ -6,17 +6,26 @@
 
 <style>
   .app-card-wrapper {
-    padding: var(--spacing-1);
     height: 100%;
+    width: 100%;
   }
 
   .app-card-container {
     width: 100%;
     height: 100%;
-    padding: var(--spacing-4);
+    padding: var(--spacing-4); /* Inner padding - ALWAYS ON */
     background-color: var(--color-bg-secondary);
-    border-radius: var(--radius-3xl);
-    border: 1px solid var(--color-border-primary);
-    overflow-y: auto; /* Add scroll for content that overflows */
+    overflow-y: auto;
+  }
+
+  /* Desktop-only styles for the "card" look */
+  @media (min-width: 769px) {
+    .app-card-wrapper {
+      padding: var(--spacing-1); /* Outer padding */
+    }
+    .app-card-container {
+      border-radius: var(--radius-3xl);
+      border: 1px solid var(--color-border-primary);
+    }
   }
 </style>
