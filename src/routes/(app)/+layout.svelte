@@ -4,10 +4,10 @@
   import { themeStore } from '$lib/stores/theme';
   import { isAuthenticated } from '$lib/stores/auth';
   import ProfileButton from '$lib/components/ProfileButton.svelte';
-  
+  import AgentInput from '$lib/components/agent/AgentInput.svelte';
+
   let currentTheme: 'light' | 'dark' = 'light';
   
-  // Subscribe to theme changes
   themeStore.subscribe(theme => {
     currentTheme = theme;
     if (typeof document !== 'undefined') {
@@ -16,7 +16,6 @@
   });
   
   onMount(() => {
-    // Initialize theme detection
     const cleanup = themeStore.init();
     return cleanup;
   });
@@ -25,9 +24,17 @@
     if (!$isAuthenticated) {
       goto('/auth');
     } else {
-      // TODO: Show profile menu when implemented
       console.log('Profile menu will be implemented later');
     }
+  }
+
+  function handleSend(value: string) {
+    console.log('Sending:', value);
+    // AI agent logic will go here
+  }
+
+  function handleMenu() {
+    console.log('Menu clicked, navigation sheet will be implemented later');
   }
 </script>
 
@@ -36,12 +43,10 @@
   <meta name="description" content="Create stunning designs with AI-powered print on demand solutions" />
 </svelte:head>
 
-<!-- Main Application Layout -->
 <div class="app-layout" data-theme={currentTheme}>
-  <!-- Sidebar -->
+  <!-- Sidebar (Desktop) -->
   <aside class="sidebar">
     <div class="sidebar-content">
-      <!-- Logo/Brand Area -->
       <div class="sidebar-brand">
         <div class="brand-logo">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,39 +62,30 @@
           </svg>
         </div>
       </div>
-      
-      <!-- Navigation Area - Future implementation -->
       <div class="sidebar-nav">
-        <!-- Navigation items will go here -->
+        <!-- Desktop navigation items -->
       </div>
-      
-      <!-- Profile Button at Bottom -->
       <div class="sidebar-bottom">
         <ProfileButton onClick={handleProfileClick} />
       </div>
     </div>
   </aside>
   
-  <!-- Main Content Area -->
+  <!-- Main Content Area (Now contains the slot for all views) -->
   <main class="main-content">
-    <div class="content-area">
-      <!-- Dynamic UI Components will be rendered here -->
-      <div class="component-container">
-        <slot />
-      </div>
-    </div>
+    <slot />
   </main>
   
-  <!-- Agent Chat UI -->
+  <!-- Agent Chat UI (Desktop) -->
   <aside class="chat-panel">
-    <div class="chat-content">
-      <div class="chat-header">
-        <h3>AI Design Assistant</h3>
-        <p>Let's create something amazing together</p>
-      </div>
-      <div class="chat-placeholder">
-        <p>Chat interface will be implemented next</p>
-      </div>
+    <div class="chat-header">
+      <h3>AI Design Assistant</h3>
+    </div>
+    <div class="chat-messages-area">
+      <!-- Chat messages will be rendered here -->
+    </div>
+    <div class="chat-input-area">
+      <AgentInput on:send={(e) => handleSend(e.detail.value)} on:menu={handleMenu} />
     </div>
   </aside>
 </div>
@@ -99,15 +95,24 @@
     display: flex;
     height: 100vh;
     background-color: var(--color-bg-primary);
+    overflow: hidden; /* Prevent body scroll */
   }
   
-  /* Sidebar */
+  /* --- Desktop Layout (Grid-based) --- */
+  @media (min-width: 769px) {
+    .app-layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr var(--chat-width);
+    }
+  }
+
+  /* Sidebar (Desktop) */
   .sidebar {
-    width: var(--sidebar-width);
     background-color: var(--color-bg-secondary);
     border-right: 1px solid var(--color-border-primary);
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
   }
   
   .sidebar-content {
@@ -118,156 +123,70 @@
     align-items: center;
   }
   
-  .sidebar-brand {
-    margin-bottom: var(--spacing-6);
-  }
-  
-  .brand-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-  
-  .brand-logo:hover {
-    transform: scale(1.05);
-  }
-  
-  .sidebar-nav {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-3);
-  }
-  
-  .sidebar-bottom {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Main Content */
+  .sidebar-brand { margin-bottom: var(--spacing-6); }
+  .sidebar-nav { flex: 1; }
+  .sidebar-bottom { margin-top: auto; }
+
+  /* Main Content (All Screens) */
   .main-content {
-    width: var(--main-content-width);
-    background-color: var(--color-bg-primary);
-    border-right: 1px solid var(--color-border-primary);
     display: flex;
     flex-direction: column;
-  }
-  
-  .content-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .component-container {
-    flex: 1;
-    padding: var(--spacing-4);
     overflow-y: auto;
   }
   
-  /* Chat Panel */
+  /* Agent Chat UI (Desktop) */
   .chat-panel {
-    width: var(--chat-width);
     background-color: var(--color-bg-secondary);
+    border-left: 1px solid var(--color-border-primary);
     display: flex;
     flex-direction: column;
-  }
-  
-  .chat-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: var(--spacing-6);
+    height: 100vh; /* Full height */
   }
   
   .chat-header {
-    margin-bottom: var(--spacing-6);
-    padding-bottom: var(--spacing-4);
+    padding: var(--spacing-4);
     border-bottom: 1px solid var(--color-border-primary);
+    flex-shrink: 0;
   }
   
   .chat-header h3 {
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--color-text-primary);
-    margin-bottom: var(--spacing-1);
   }
   
-  .chat-header p {
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
-  }
-  
-  .chat-placeholder {
+  .chat-messages-area {
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-tertiary);
-    font-style: italic;
+    overflow-y: auto;
+    position: relative;
   }
-  
-  /* Mobile Responsiveness */
+
+  .chat-input-area {
+    flex-shrink: 0;
+  }
+
+  /* --- Mobile First Refactor --- */
   @media (max-width: 768px) {
-    .app-layout {
-      flex-direction: column;
+    .sidebar, .chat-panel {
+      display: none; /* Hide sidebar and desktop chat panel on mobile */
     }
-    
-    .sidebar {
-      width: 100%;
-      height: 60px;
-      order: 3;
-    }
-    
-    .sidebar-content {
-      flex-direction: row;
-      padding: var(--spacing-3) var(--spacing-4);
-      justify-content: space-between;
-    }
-    
-    .sidebar-brand {
-      margin-bottom: 0;
-    }
-    
-    .sidebar-nav {
-      flex-direction: row;
-      flex: 1;
-      justify-content: center;
-      margin: 0 var(--spacing-4);
-    }
-    
-    .sidebar-bottom {
-      margin-left: 0;
-      width: auto;
-    }
-    
+
     .main-content {
       width: 100%;
-      order: 1;
+      /* On mobile, the main content IS the chat view */
+      /* It will contain the slot and the agent input */
+      display: flex; /* Use flex to position input at bottom */
+      flex-direction: column;
+      height: 100vh;
     }
-    
-    .chat-panel {
-      width: 100%;
-      height: 300px;
-      order: 2;
+
+    /* We need a new structure for mobile inside main-content */
+    :global(.mobile-chat-wrapper) {
+      flex: 1;
+      overflow-y: auto;
     }
-  }
-  
-  /* Tablet and small desktop adjustments */
-  @media (max-width: 1024px) and (min-width: 769px) {
-    :root {
-      --sidebar-width: 70px;
-      --chat-width: 360px;
-      --main-content-width: calc(100vw - 70px - 360px);
-    }
-    
-    .sidebar-content {
-      padding: var(--spacing-3);
+    :global(.mobile-input-wrapper) {
+      flex-shrink: 0;
     }
   }
 </style>
